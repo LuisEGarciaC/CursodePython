@@ -1,4 +1,5 @@
 # la variable es facil de hacer solo debemos utilizar el simbolo de =
+# las variables son dinamicas ya que pueden apuntar a cualquier tipo de datos
 miVariable = "hola mundo desde python clase1"
 print(miVariable)
 print(miVariable)
