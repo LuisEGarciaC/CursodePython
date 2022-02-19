@@ -4,4 +4,4 @@
 
 - Variables
 - Tipos de datos
--
+- Condicional if/ elfi / else
