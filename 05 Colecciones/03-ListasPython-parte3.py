@@ -1,3 +1,9 @@
+# Las listas en Python son un tipo contenedor, compuesto, que se usan para almacenar conjuntos de elementos relacionados del mismo tipo o de tipos distintos.
+
+# Junto a las clases tuple, range y str, son uno de los tipos de secuencia en Python, con la particularidad de que son mutables. Esto último quiere decir que su contenido se puede modificar después de haber sido creada.
+
+# Para crear una lista en Python, simplemente hay que encerrar una secuencia de elementos separados por comas entre paréntesis cuadrados [].
+
 # Definir una lista de tipo str
 nombres = ['Juan','Karla','Ricardo', 'María']
 # imprimir la lista nombres

@@ -1,3 +1,5 @@
+# Un set es una colección que no posee órden, y por tanto, tampoco números de índex. Esto quiere decir que no podemos decidir el orden en el cual aparecerán sus elementos. En Python, los sets se escriben entre llaves.
+
 # set
 planetas = {'Marte', 'Júpiter', 'Venus'}
 print(planetas)

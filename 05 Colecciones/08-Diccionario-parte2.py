@@ -1,3 +1,9 @@
+# Diccionario
+# Los diccionarios en Python son una estructura de datos que permite almacenar su contenido en forma de llave y valor.
+
+# Crear diccionario Python
+# Un diccionario en Python es una colección de elementos, donde cada uno tiene una llave key y un valor value. Los diccionarios se pueden crear con paréntesis {} separando con una coma cada par key: value. En el siguiente ejemplo tenemos tres keys que son el nombre, la edad y el documento.
+
 # dict (key, value)
 diccionario = {
     'IDE':'Integrated Development Environment',
