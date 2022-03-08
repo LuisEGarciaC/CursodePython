@@ -1,0 +1,6 @@
+
+# TODAS LAS CONSTANTES SE TIENE QUE ESCRIBIR POR CONVENCION EN MAYUSCULA
+MI_CONSTANTE = 'Valor de mi constante'
+
+class Matematicas:
+    PI = 3.1416
