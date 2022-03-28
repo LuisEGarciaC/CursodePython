@@ -1,0 +1,3 @@
+Hola Mundo!
+HOLA LUIS SI SE LOGRO!!
+Escribiendo archivo desde Python.
