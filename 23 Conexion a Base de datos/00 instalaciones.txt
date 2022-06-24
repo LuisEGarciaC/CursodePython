@@ -1,0 +1,8 @@
+- despues de la instalacion de la base de datos de preferencia
+se instalara un paquede dentro de python a traves de pip 
+
+mysql
+pip install mysql-connector
+
+postgreSQL
+pip install psycopg2
