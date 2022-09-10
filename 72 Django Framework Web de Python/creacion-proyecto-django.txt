@@ -1,0 +1,11 @@
+#crear un nuevo proyecto django
+django-admin startproject sap
+
+#movernos a la nueva carpeta del proyecto
+#donde está el archivo manage.py
+cd sap
+
+#ejecutar la aplicación:
+python manage.py runserver
+#abrir un navegador y escribir: 
+127.0.0.1:8000

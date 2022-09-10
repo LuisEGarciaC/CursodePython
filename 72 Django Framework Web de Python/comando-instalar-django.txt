@@ -1,0 +1,7 @@
+#instalar django con el comando (revisar que estemos dentro del environment virtual):
+#desactivar antivirus, windows defender, firewall o cualquier software si falla este proceso
+#esto instala django y sus dependencias
+python -m pip install django
+
+revisar la versión de django:
+django-admin version
