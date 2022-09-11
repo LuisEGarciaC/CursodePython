@@ -1,0 +1,9 @@
+#crear nueva pagina (apps)
+#estar en la carpeta del proyecto (no en la carpeta raiz)
+python manage.py startapp webapp
+
+se puede eliminar todo excepto __init__.py y views.py
+
+#MODIFICAR settings.py a nivel del proyecto:
+INSTALLED_APPS agregar al final 
+ 'webapp',
