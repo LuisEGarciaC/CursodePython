@@ -1,0 +1,23 @@
+#instalar flask y sus dependencias
+python -m pip install flask
+
+#ejecutar el servidor flask, en modo dev se activa debugger
+#en windows
+set FLASK_APP="APPNAME".py
+set FLASK_ENV=development
+
+
+
+#en mac o linux
+export FLASK_APP=miapp.py
+export FLASK_ENV=development
+
+
+
+#ejecutar el servidor
+flask run
+
+#otra opcion si no levanta el servidor
+python -m flask run
+
+#nunca poner flask.py a nuestra aplicacion, eso no funcionará

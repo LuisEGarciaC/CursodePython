@@ -1,0 +1,283 @@
+1 - creamos la base de datos a conectar
+
+sap_flask_bd
+
+2 - llamar a flask en el archivo
+from flask import Flask
+
+app = Flask(__name__)
+
+
+3 - #Configuración de la bd
+USER_DB = 'postgres'
+PASS_DB = 'admin'
+URL_DB = 'localhost'
+NAME_DB = 'sap_flask_db'
+FULL_URL_DB = f'postgresql://{USER_DB}:{PASS_DB}@{URL_DB}/{NAME_DB}'
+
+
+# url dela base de datos
+app.config['SQLALCHEMY_DATABASE_URI'] = FULL_URL_DB
+
+# rastreo de modificaciones!!!
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
+#Inicializacion del objeto db de sqlalchemy
+#importamos
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy(app)
+
+
+
+#  modelo de la tabla
+class Persona(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nombre = db.Column(db.String(250))
+    apellido = db.Column(db.String(250))
+    email = db.Column(db.String(250))
+
+    def __str__(self):
+        return (
+            f'Id: {self.id}, '
+            f'Nombre: {self.nombre}, '
+            f'Apellido: {self.apellido}, '
+            f'Email: {self.email}'
+        )
+
+
+#configurar flask-migrate
+migrate = Migrate()
+migrate.init_app(app, db)
+
+
+#creacion de la carpeta migracion
+# en el terminal escribimos
+flask db init
+
+# hacer la migracion
+flask db migrate
+
+# para crear la tabla en la base de datos
+flask db upgrate
+
+#para saver si esta actualizado
+flask db stamp head
+
+# varias rutas
+@app.route('/')
+@app.route('/index')
+@app.route('/index.html')
+def inicio():
+    #Listado de personas
+    #personas = Persona.query.all()
+    personas = Persona.query.order_by('id')
+    total_personas = Persona.query.count()
+    app.logger.debug(f'Listado Personas: {personas}')
+    app.logger.debug(f'Total Personas: {total_personas}')
+    return render_template('index.html', personas = personas, total_personas = total_personas)
+
+
+ "html index"
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Personas</title>
+</head>
+<body>
+<h1>Sistema de Administración de Personas (SAP)</h1>
+<div>
+    Total de personas: {{total_personas}}
+</div>
+<div>
+    <a href="/agregar">Agregar Persona</a>
+</div>
+<div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for persona in personas %}
+                <tr>
+                    <td>{{persona.id}}</td>
+                    <td>{{persona.nombre}}</td>
+                    <td>{{persona.apellido}}</td>
+                    <td>{{persona.email}}</td>
+                    <td><a href="ver/{{persona.id}}">Ver</a></td>
+                    <td><a href="editar/{{persona.id}}">Editar</a></td>
+                    <td><a href="eliminar/{{persona.id}}">Eliminar</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+
+
+@app.route('/ver/<int:id>')
+def ver_detalle(id):
+    # Recuperamos la persona según el id proporcionado
+    # persona = Persona.query.get(id)
+    persona = Persona.query.get_or_404(id)
+    app.logger.debug(f'Ver persona: {persona}')
+    return render_template('detalle.html', persona=persona)
+
+
+#Detalle html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Persona</title>
+</head>
+<body>
+<h1>Ver Persona</h1>
+<div>Id Persona: {{persona.id}}</div>
+<div>Nombre: {{persona.nombre}}</div>
+<div>Apellido: {{persona.apellido}}</div>
+<div>Email: {{persona.email}}</div>
+<br/>
+<a href="{{url_for('inicio')}}">Regresar al inicio</a>
+</body>
+</html>
+
+
+
+#agregar
+
+@app.route('/agregar', methods=['GET','POST'])
+def agregar():
+    persona = Persona()
+    personaForm = PersonaForm(obj=persona)
+    if request.method == 'POST':
+        if personaForm.validate_on_submit():
+           personaForm.populate_obj(persona)
+           app.logger.debug(f'Persona a insertar: {persona}')
+           #Insertamos el nuevo registro
+           db.session.add(persona)
+           db.session.commit()
+           return redirect(url_for('inicio'))
+    return render_template('agregar.html', forma = personaForm)
+
+
+#html agregar
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Agregar Persona</title>
+</head>
+<body>
+<h1>Agregar Persona</h1>
+<form method="POST">
+    {{forma.csrf_token}}
+    <p>
+        {{forma.nombre.label}} <br/>
+        {{forma.nombre(size=30)}}
+    </p>
+    <p>
+        {{forma.apellido.label}} <br/>
+        {{forma.apellido(size=30)}}
+    </p>
+    <p>
+        {{forma.email.label}} <br/>
+        {{forma.email(size=30)}}
+    </p>
+    <p>
+        {{forma.enviar()}}
+    </p>
+</form>
+</body>
+</html>
+
+agregamos
+#configuracion de flask-wtf
+app.config['SECRET_KEY']='llave_secreta'
+
+
+
+#formularios
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+
+class PersonaForm(FlaskForm):
+    nombre = StringField('Nombre', validators=[DataRequired()])
+    apellido = StringField('Apellido')
+    email = StringField('Email', validators=[DataRequired()])
+    enviar = SubmitField('Enviar')
+
+
+#editar
+
+@app.route('/editar/<int:id>', methods=['GET','POST'])
+def editar(id):
+    #Recuperamos el objeto persona a editar
+    persona = Persona.query.get_or_404(id)
+    personaForma = PersonaForm(obj=persona)
+    if request.method == 'POST':
+        if personaForma.validate_on_submit():
+            personaForma.populate_obj(persona)
+            app.logger.debug(f'Persona a actualizar: {persona}')
+            db.session.commit()
+            return redirect(url_for('inicio'))
+    return render_template('editar.html', forma = personaForma)
+
+
+# html de editar
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Persona</title>
+</head>
+<body>
+<h1>Editar Persona</h1>
+<form method="POST">
+    {{forma.csrf_token}}
+    <p>
+        {{forma.nombre.label}} <br/>
+        {{forma.nombre(size=30)}}
+    </p>
+    <p>
+        {{forma.apellido.label}} <br/>
+        {{forma.apellido(size=30)}}
+    </p>
+    <p>
+        {{forma.email.label}} <br/>
+        {{forma.email(size=30)}}
+    </p>
+    <p>
+        {{forma.enviar()}}
+    </p>
+</form>
+</body>
+</html>
+
+
+#eliminar
+@app.route('/eliminar/<int:id>')
+def eliminar(id):
+    persona = Persona.query.get_or_404(id)
+    app.logger.debug(f'Persona a eliminar: {persona}')
+    db.session.delete(persona)
+    db.session.commit()
+    return redirect(url_for('inicio'))

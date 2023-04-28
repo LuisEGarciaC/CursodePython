@@ -1,0 +1,12 @@
+
+flask = instalacion de flask 
+flask-sqlalchemy = modelado de datos orm
+flask-migrate = migracion a base de datos
+psycopg2 = conexion a postgresql
+
+
+python -m pip install flask flask-sqlalchemy flask-migrate psycopg2
+
+
+WTForm
+python -m pip install flask-wtf

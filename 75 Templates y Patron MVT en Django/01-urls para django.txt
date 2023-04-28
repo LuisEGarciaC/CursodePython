@@ -1,0 +1,9 @@
+01 - https://docs.djangoproject.com/en/4.1/topics/templates/
+
+02 - https://docs.djangoproject.com/en/4.1/topics/db/managers/
+
+03 - https://docs.djangoproject.com/en/4.1/topics/db/queries/
+
+04 - https://docs.djangoproject.com/en/4.1/topics/forms/modelforms/
+
+05 - https://docs.djangoproject.com/en/4.1/ref/forms/widgets/

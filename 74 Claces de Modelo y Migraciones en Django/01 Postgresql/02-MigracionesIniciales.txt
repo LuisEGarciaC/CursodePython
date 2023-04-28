@@ -1,0 +1,5 @@
+#Ver las migraciones pendientes:
+python manage.py showmigrations
+
+#Aplicar las migraciones pendientes
+python manage.py migrate

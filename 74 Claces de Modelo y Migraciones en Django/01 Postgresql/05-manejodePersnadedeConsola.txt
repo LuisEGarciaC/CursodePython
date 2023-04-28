@@ -1,0 +1,16 @@
+nos dirigimos desde la consola de administracion a Persona
+
+
+agregamos los datos AddPersona+
+
+ya que cereamos una claces con los datos que fueron a la tabla podemos agregar datos si no hemos creado
+aun la interaccion con la pagina web, podemos usar esta pagina de administracion para agregar y 
+eliminar informaion de la tala de la base de datos
+
+al crear un nuevo archio se usa 
+python manage.py migrate
+
+python manage.py makemigrations
+
+en admin.py
+admin.site.register(Domicilio)

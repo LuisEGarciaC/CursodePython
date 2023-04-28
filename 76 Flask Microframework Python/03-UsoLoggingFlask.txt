@@ -1,0 +1,15 @@
+#Ambiente desarrollo (modo debug)
+#en windows
+set FLASK_ENV=development
+
+#en mac o linux
+export FLASK_ENV=development
+
+#Ambiente produccion
+#en windows
+set FLASK_ENV=production
+
+#en mac o linux
+export FLASK_ENV=production
+
+

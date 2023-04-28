@@ -1,0 +1,28 @@
+#https://docs.djangoproject.com/en/3.0/ref/models/fields/
+#https://docs.djangoproject.com/en/3.0/howto/custom-model-fields/
+
+#Antes de empezar la leccion borrar el archivo sqlite3 para ahora trabajar con mysql 
+
+#primeros pasos actualizar pip setuptools wheel
+python -m pip install --upgrade pip setuptools wheel
+
+#instalar postgresql:
+pip install PyMySQL
+
+#crea base de datos sap_sb en pgadmin, sin nada mas
+
+# en el archivo init pricipal del proyecto usamos 
+import pymysql
+pymysql.install_as_MySQLdb()
+
+#configurar mysql en archivo settings.py
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'DataBase',
+        'USER': 'youroot',
+        'PASSWORD': 'youPASSWORD',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}

@@ -1,0 +1,7 @@
+#crear un usuario para admin
+python manage.py createsuperuser
+username: admin
+email: admin@mail.com
+pass: 123
+
+bypass: y

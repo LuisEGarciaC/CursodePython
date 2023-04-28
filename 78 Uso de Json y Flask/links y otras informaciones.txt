@@ -1,0 +1,16 @@
+introduccion
+https://www.w3schools.com/js/js_json_intro.asp
+
+ejemplos de listas
+https://www.w3schools.com/js/js_json.asp
+
+editor online
+https://jsoneditoronline.org/#right=local.caqifi&left=local.fezoxi
+
+
+que es servicio REST
+https://en.wikipedia.org/wiki/Representational_state_transfer
+
+que es API
+
+https://en.wikipedia.org/wiki/API
